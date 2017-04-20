@@ -56,8 +56,6 @@ typedef struct NODE
     NODE* nextAlph;         // Next pointer to a NODE of linked list in Alphebetical Order
     char  name;             // Name the user defined
     char  *inputs[];        // Array of pointers to arrays that list all possible inputs( 2^5 > 25 states, 5 inputs at most)
-    NODE  *nextState[];     // Array of NODE pointers, every input (in boolean order: 00,01,10,11), has a pointer to the next state.
-                            // Initializes as an array of NULL pointers the size of the total inputs possible, after the user specifies input #
     
     int   defInputs[];      // Array of the inputs the user has defined, the index corresponds to the index in boolean order.
                             // Total length is length of all possible inputs. 0 = false, 1 = true, initiallizes as all 0's
@@ -65,6 +63,8 @@ typedef struct NODE
     int   defOutputs[];     // Array of the inputs the user has defined, the index corresponds to the index in boolean order.
                             // Total length is length of all possible inputs. 0 = false, 1 = true, initiallizes as all 0's
     
+    NODE  *nextState[];     // Moore, only. Array of NODE pointers, every input (in boolean order: 00,01,10,11), has a pointer to the next state.
+                            // Initializes as an array of NULL pointers the size of the total inputs possible, after the user specifies input #
     char  *mealyOutputs[];  // For Mealy: Array of output pointers the size of the number of possible inputs, each ptr corresponding to a
                             // possible output the user defined the index corresponds to the corresponding input in boolean order.
     
@@ -134,7 +134,7 @@ void PrintNameList()
 
 void main(){
     
-    // initial setup
+    // 1. initial setup
     NODE **nodes;       //Pointer to pointer or type NODE
     int statenum;
     int inputnum;       //Example: 2 -> X1X2 = ['00','01','10','11']
@@ -142,27 +142,34 @@ void main(){
     int temp;
     bool type;
     
-    // store user entered data
-    char *outputs[];                // array of pointers to stings that user entered as outputs;
+    // 2. store user entered data
+    char *outputs[];                      // array of pointers to stings that user entered as outputs;
     
-    // Ask user for state machine specifications
+    // 3. Ask user for state machine specifications
     cout<<"Enter Number of States Desired:"<<endl;
     cin  >> statenum;
     cout<<"Enter Number of Inputs Desired:"<<endl;
     cin  >> inputnum;
     cout<<"Enter 0 for Moore FST, 1 for Mealy FST:"<<endl;
     cin  >> temp;
-    // add if statment to go from temp to type
+    // 4. add if statment to go from temp to type
     
     
     nodes = new NODE *[statenum];                     // Declares array of pointers to NODEs
     buildNodes(nodes, stateNum, inputNum, type);      // Builds list of node pointers
     
-
+    
+    // 5. start parsing user input and assign data to parts of nodes
+            // check for user error
+    
+    // 6. some way the user marks that they are finished
+    
+    // 7. alphebetize state(node) names and link the nodes in the appropriate order (nextAlph var of NODE struct)
+    
+    // 8. check for user error, such as not defining states or defining the different outputs for the same input
     
     
-    
-    
+    // 9. COUT Graph and Table from information in linked list of nodes
     
     /* Example of how to work with COUT
      cout<<"enter1:"<<endl;
