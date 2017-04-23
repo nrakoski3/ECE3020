@@ -138,9 +138,9 @@ void main(){
     NODE **nodes;       //Pointer to pointer or type NODE
     int statenum;
     int inputnum;       //Example: 2 -> X1X2 = ['00','01','10','11']
-    int numPossibleInputs = pow(2, intputNum);
+    int numPossibleInputs;
     int temp;
-    bool type;
+    bool type = false;
     
     // 2. store user entered data
     char *outputs[];                      // array of pointers to stings that user entered as outputs;
@@ -150,9 +150,14 @@ void main(){
     cin  >> statenum;
     cout<<"Enter Number of Inputs Desired:"<<endl;
     cin  >> inputnum;
+    numPossibleInputs = pow(2, intputnum);
     cout<<"Enter 0 for Moore FST, 1 for Mealy FST:"<<endl;
     cin  >> temp;
-    // 4. add if statment to go from temp to type
+    
+    // 4. If statment to go from temp to type
+    if (temp == 0){
+        type = true;
+    }
     
     
     nodes = new NODE *[statenum];                     // Declares array of pointers to NODEs
@@ -161,6 +166,71 @@ void main(){
     
     // 5. start parsing user input and assign data to parts of nodes
             // check for user error
+    char cmd{}, var{};
+    char nodeName{}, statein{}, stateout{}, input{}, output{};
+    char *statenames[statenum];           // array of pointers to stings that user entered as statenames;
+    char *statenamesAlph[statenum];       // array of pointers to stings that user entered as statenames in alphebetical order;
+    char *outputs[];                      // array of pointers to stings that user entered as outputs;
+    cout<<"Begin entering FST specifications:"<<endl;
+    
+    int nodenum = 0;
+    
+    while(true){
+        
+        cout<<"Type ""NODE"" or ""ARC"", when finished type ""END"":"<<endl;
+        cin >> cmd;
+        
+        if (cmd == "NODE"){
+            
+            if (type == 0) {    //if Moore
+                
+                cout<<"Type ""stateName"" ""stateOutput"" :"<<endl;
+                cin >> nodeName >> output;
+                nodes[nodenum]->name = nodeName;
+                
+                
+                
+                
+                
+            } else{             //if Mealy
+            
+                cout<<"Type ""stateName"" :"<<endl;
+                cin >> nodeName;
+                
+            }
+            
+            
+            nodenum += 1;
+            
+        } else if(cmd == "ARC"){
+            
+            if (type == 0) {    //if Moore
+                
+                cout<<"Type ""stateIn"" ""stateOut"" ""input(Ex: X1X2X3 = 000)"" :"<<endl;
+                cin >> statein >> stateout >> input;
+                
+                
+                
+                
+            } else{             //if Mealy
+                
+                cout<<"Type ""stateIn"" ""stateOut"" ""input(Ex: X1X2X3 = 000)"" ""output"":"<<endl;
+                cin >> statein >> stateout >> input >> output;
+                
+            }
+            
+
+        
+        } else if(cmd == "END"){
+            break;
+        } else{
+            cout<<"User did not enter ""NODE"", ""ARC"", or ""END""."<<endl;
+        }
+        
+        
+        
+    }//end while
+    
     
     // 6. some way the user marks that they are finished
     
