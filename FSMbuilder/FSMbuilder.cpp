@@ -138,7 +138,6 @@ void main(){
     NODE **nodes;       //Pointer to pointer or type NODE
     int statenum;
     int inputnum;       //Example: 2 -> X1X2 = ['00','01','10','11']
-    int numPossibleInputs;
     int temp;
     bool type = false;
     
@@ -150,7 +149,6 @@ void main(){
     cin  >> statenum;
     cout<<"Enter Number of Inputs Desired:"<<endl;
     cin  >> inputnum;
-    numPossibleInputs = pow(2, intputnum);
     cout<<"Enter 0 for Moore FST, 1 for Mealy FST:"<<endl;
     cin  >> temp;
     
@@ -167,7 +165,8 @@ void main(){
     // 5. start parsing user input and assign data to parts of nodes
             // check for user error
     char cmd{}, var{};
-    char nodeName{}, statein{}, stateout{}, input{}, output{};
+    int numPossibleInputs = pow(2, intputnum);
+    char statein{}, stateout{}, input{}, output{};
     char *statenames[statenum];           // array of pointers to stings that user entered as statenames;
     char *statenamesAlph[statenum];       // array of pointers to stings that user entered as statenames in alphebetical order;
     char *outputs[];                      // array of pointers to stings that user entered as outputs;
@@ -185,8 +184,8 @@ void main(){
             if (type == 0) {    //if Moore
                 
                 cout<<"Type ""stateName"" ""stateOutput"" :"<<endl;
-                cin >> nodeName >> output;
-                nodes[nodenum]->name = nodeName;
+                cin >> nodes[nodenum]->name >> output;
+                statenames[nodenum] = nodes[nodenum].name;
                 
                 
                 
