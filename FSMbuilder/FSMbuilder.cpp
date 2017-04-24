@@ -112,6 +112,7 @@ void main(){
     string cmd, statein, stateout, input, output;
     int statein_ind, stateout_ind, input_ind, output_ind;
     //stingA.compare(stringB)
+    //int i = std::stoi("01000101", nullptr, 2)
     int nodenum = 0;
     int outputnum = 0;
 
@@ -191,6 +192,7 @@ void main(){
                 statein_ind = -1;
                 stateout_ind = -1;
                 output_ind = -1;
+                input_ind = -1;
                 for(int i; i<nodenum; i++){
                     if(states[i].compare(statein) == 0){
                         statein_ind = i;
@@ -214,8 +216,16 @@ void main(){
                             output_ind = i;
                         }
                     }
+<<<<<<< HEAD
 
 
+=======
+                
+                    //check if output for input has already been defined before
+                    if(input_ind==-1)){
+                    
+                    }
+>>>>>>> master
                     //check if output has not been defined before
                     if(output_ind == -1){
                         outputs[outputnum] = output;
@@ -227,7 +237,8 @@ void main(){
                     nodes[statein_ind]->nextState[input_ind] = nodes[stateout_ind];
                     // add pointer to output into mealyOutputs of statein in the correct place
                     nodes[statein_ind]->mealyOutputs[input_ind] = &outputs[output_ind];
-                    // mark defInputs
+                    
+                    //check if
                     nodes[statein_ind]->defInputs[input_ind] = 1;
                 }
             }
