@@ -24,7 +24,7 @@ using namespace std;
     * Mealy State Machine
     - NODE "name"
     - Arc  "fromNode toNode inputs/ output"
- 
+
     * Moore State Machine
     - NODE "name/ Z(output)"
     - Arc  "fromNode toNode input"
@@ -62,20 +62,20 @@ typedef struct NODE
     //Ever input combination has its own output.
     string*  mooreOutput;     // If Moore, each state(node) has 1 corresponding output. This is the pointer to that output, which lies
     // in a list of outputs that the user has defined so far.
-    
+
 } state_t;
 
 
 void main(){
-    
+
     // 1. initial setup
     NODE **nodes;       //Pointer to pointer or type NODE
     int statenum;
     int inputnum;       //Example: 2 -> X1X2 = ['00','01','10','11']
     int temp;
     bool type = false;
-    
-    
+
+
     // 2. Ask user for state machine specifications
     cout<<"Enter Number of States Desired:"<<endl;
     cin  >> statenum;
@@ -85,7 +85,7 @@ void main(){
     string possInputs[numPossibleInputs];
     cout<<"Enter 0 for Moore FST, 1 for Mealy FST:"<<endl;
     cin  >> temp;
-    
+
     // 3. Initiate Build
     if (temp == 0){         //if Moore
         type = true;
@@ -103,49 +103,49 @@ void main(){
     }
     // 4. create function that will make sting array of all possible inputs
     //const string possinputs[] = {"00", "01", "10", "11"};
-    
-    
+
+
     // 5. start parsing user input and assign data to parts of nodes
             // check for user error
-    cout<<"Begin entering FST specifications:"<<endl;
-    
+    cout<<"Begin entering FSM specifications:"<<endl;
+
     string cmd, statein, stateout, input, output;
     int statein_ind, stateout_ind, input_ind, output_ind;
     //stingA.compare(stringB)
     int nodenum = 0;
     int outputnum = 0;
-    
+
     while(true){
-        
+
         cout<<"Type ""NODE"" or ""ARC"", when finished type ""END"":"<<endl;
         cin >> cmd;
-        
+
         if (cmd == "NODE"){
-            
+
             if (type == 0) {    //if Moore
                 cout<<"Type ""stateName"" ""stateOutput"" :"<<endl;
                 cin >> states[nodenum] >> outputs[outputnum];
-                
+
                 nodes[nodenum]->name = &states[nodenum];
                 nodes[nodenum]->mooreOutput = &outputs[outputnum];
-                
+
                 outputnum += 1;
-                
+
             } else{             //if Mealy
                 cout<<"Type ""stateName"" :"<<endl;
                 cin >> states[nodenum];
                 nodes[nodenum]->name = &states[nodenum];
             }
-            
+
             nodenum += 1;
-            
+
         } else if(cmd == "ARC"){
-            
+
             if (type == 0) {    //if Moore
-                
+
                 cout<<"Type ""stateIn"" ""stateOut"" ""input(Ex: X1X2X3 = 000)"" :"<<endl;
                 cin >> statein >> stateout >> input;
-                
+
                 // Find indexes
                 statein_ind = -1;
                 stateout_ind = -1;
@@ -161,32 +161,32 @@ void main(){
                 if((statein_ind == -1) or (stateout_ind == -1)){
                     cout<<"Error:User has not created NODE stateIn or NODE stateOut."<<endl;
                 } else{
-                
+
                     for(int i; i<numPossibleInputs; i++){
-                    
+
                         if(possInputs[i].compare(input) == 0){
                             input_ind = i;
                         }
                     }
-                    
+
                     // Check if input has been defined before
                     if(nodes[statein_ind]->defInputs[input_ind] == 1){
-                        
+
                     }
-                    
+
                     // add pointer to stateout into nextState of statein in the correct place
                     nodes[statein_ind]->nextState[input_ind] = nodes[stateout_ind];
                     // mark defInputs
                     nodes[statein_ind]->defInputs[input_ind] = 1;
                 }
             }
-            
+
 
             } else{             //if Mealy
-                
+
                 cout<<"Type ""stateIn"" ""stateOut"" ""input(Ex: X1X2X3 = 000)"" ""output"":"<<endl;
                 cin >> statein >> stateout >> input >> output;
-                
+
                 // Find indexes
                 statein_ind = -1;
                 stateout_ind = -1;
@@ -204,9 +204,9 @@ void main(){
                     cout<<"Error:User has not created NODE stateIn or NODE stateOut."<<endl;
                 } else{
 
-                
+
                     for(int i; i<numPossibleInputs; i++){
-                    
+
                         if(possInputs[i].compare(input) == 0){
                             input_ind = i;
                         }
@@ -214,15 +214,15 @@ void main(){
                             output_ind = i;
                         }
                     }
-                
-                
+
+
                     //check if output has not been defined before
                     if(output_ind == -1){
                         outputs[outputnum] = output;
                         output_ind = outputnum;
                         outputnum += 1;
                     }
-                
+
                     // add pointer to stateout into nextState of statein in the correct place
                     nodes[statein_ind]->nextState[input_ind] = nodes[stateout_ind];
                     // add pointer to output into mealyOutputs of statein in the correct place
@@ -231,23 +231,23 @@ void main(){
                     nodes[statein_ind]->defInputs[input_ind] = 1;
                 }
             }
-            
 
-        
+
+
         } else if(cmd == "END"){ // User ends operation
             break;
         } else{
             cout<<"User did not enter ""NODE"", ""ARC"", or ""END""."<<endl;
         }
     }//end while
-    
+
     // 8. check for user error, such as not defining states or defining the different outputs for the same input
-    
+
     // 7. alphebetize state(node) names and link the nodes in the appropriate order (nextAlph var of NODE struct)
-    
-    
+
+
     // 9. COUT Graph and Table from information in linked list of nodes
-    
+
     /* Example of how to work with COUT
      cout<<"enter1:"<<endl;
      cin  >> Car[0]->RegCode;
@@ -260,15 +260,9 @@ void main(){
 
 /*
  Trash Code
- 
+
  char* str;                                                       //char* strarray[] = {"hey", "sup", "dogg"};
  vector<string> strvector;
  char* strarray[];
  //std::vector<std::string> strInputs[];                          // syntax std::vector<std::string> v = {"Hello", "World"};
  */
-
-
-
-
-
-
