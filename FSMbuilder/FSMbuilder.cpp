@@ -54,22 +54,14 @@ using namespace std;
 typedef struct NODE
 {
     NODE* nextAlph;         // Next pointer to a NODE of linked list in Alphebetical Order
-    char  name;             // Name the user defined
-    char  *inputs[];        // Array of pointers to arrays that list all possible inputs( 2^5 > 25 states, 5 inputs at most)
-    
-    int   defInputs[];      // Array of the inputs the user has defined, the index corresponds to the index in boolean order.
-                            // Total length is length of all possible inputs. 0 = false, 1 = true, initiallizes as all 0's
-    
-    int   defOutputs[];     // Array of the inputs the user has defined, the index corresponds to the index in boolean order.
-                            // Total length is length of all possible inputs. 0 = false, 1 = true, initiallizes as all 0's
-    
-    NODE  *nextState[];     // Moore, only. Array of NODE pointers, every input (in boolean order: 00,01,10,11), has a pointer to the next state.
-                            // Initializes as an array of NULL pointers the size of the total inputs possible, after the user specifies input #
-    char  *mealyOutputs[];  // For Mealy: Array of output pointers the size of the number of possible inputs, each ptr corresponding to a
-                            // possible output the user defined the index corresponds to the corresponding input in boolean order.
-    
-    char*  mooreOutput;     // If Moore, each state(node) has 1 corresponding output. This is the pointer to that output, which lies
-                            // is a list of outputs that the user has defined so far.
+    string*  name;            // Pointer to name the user defined
+    int   defInputs[32];   // Arry of 0's or 1's corrrespinding to what inputs the user has defined.
+    NODE  *nextState[32];   // Moore, only. Array of NODE pointers, every input (in boolean order: 00,01,10,11), has a pointer to the next state.
+    // Initializes as an array of NULL pointers the size of the total inputs possible, after the user specifies input #
+    string  *mealyOutputs[32];//For Mealy: Array of pointers to the names of outputs that the user has defined
+    //Ever input combination has its own output.
+    string*  mooreOutput;     // If Moore, each state(node) has 1 corresponding output. This is the pointer to that output, which lies
+    // in a list of outputs that the user has defined so far.
     
 } state_t;
 
@@ -78,19 +70,10 @@ void buildNodes(nodeArr, stateNum, inputNum, type){
     // take user definitions of state machine and build the array of pointers to Nodes
     
     int numPossibleInputs = pow(2, intputNum);
-    int inputArr[numPossibleInputs];    //Array of 0's and 1's that marks what has been defined by the user
-    int outputArr[numPossibleInputs];   //Array of 0's and 1's that marks what has been defined by the user
-    
-    
-    
-    // build array of inputs and outputs yet to be defined, 0 = false, 1 = true
-    for(int i; i < inputNum; i++){
-        inputArr[i] = 0;
-        outputArr[i] = 0;
-    }
     
     for(int i; i < stateNum; i++){
         nodes[i] = new NODE;            //Initializes state[i]
+    }
     
         // Inputs that the user has defined Outputs for, initiallizes as an array of 'x' the size of # possible outputs
         // like: ['x','x','x','x'] for eventually ['00','01','10','11']
