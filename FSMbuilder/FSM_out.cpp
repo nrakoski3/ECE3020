@@ -68,23 +68,23 @@ int main(){
     string nums5[] = {"00000", "00001", "00010", "00011", "00100", "00101","00110", "00111", "01000", "01001", "01010","01011", "01100","01101", "01110", "01111","10000","10001", "10010", "10011", "10100","10101","10111","11000", "11001" , "11010","11011","11100","11101","11110", "11111"};
     switch(userInput){
         case 1:
-            for(int i=0; i < numPossible; i++)
+            for(int i=0; i < numPossibleInputs; i++)
                 possInputs[i] = nums1[i];
             break;
         case 2:
-            for(int i=0; i < numPossible; i++)
+            for(int i=0; i < numPossibleInputs; i++)
                 possInputs[i] = nums2[i];
             break;
         case 3:
-            for(int i=0; i < numPossible; i++)
+            for(int i=0; i < numPossibleInputs; i++)
                 possInputs[i] = nums3[i];
             break;
         case 4:
-            for(int i=0; i < numPossible; i++)
+            for(int i=0; i < numPossibleInputs; i++)
                 possInputs[i] = nums4[i];
             break;
         case 5:
-            for(int i=0; i < numPossible; i++)
+            for(int i=0; i < numPossibleInputs; i++)
                 possInputs[i] = nums5[i];
             break;
     };
@@ -135,7 +135,7 @@ int main(){
         cout<<"Output Graph" << endl<<endl;
         for(int i = 0; i < statenum; i++){
             cout<< *(nodes[0]->name) << endl;  // output node name
-            for(int j= 0; j < numPossible; j++){
+            for(int j= 0; j < numPossibleInputs; j++){
                 cout<< setw(10)<< *(nodes[0]->nextState[0])->name << setw(10)<< possInputs[0]<< "/"<<  *(nodes[0]->mooreOutput)  ; //output next state
             }
             cout<<endl;
@@ -143,13 +143,13 @@ int main(){
         cout<< "Output Table" << endl<<endl;
         cout<< "Current" <<  setw(8)<< "|"<< setw(10)<< "Next State/Output"<<endl;
         cout<< "State" << setw(10)<<"|" << setw(10);
-        for(int i = 0; i < numPossible; i++){
+        for(int i = 0; i < numPossibleInputs; i++){
             cout<<"X = "<< possInputs[0]<<setw(10);
         }
         cout<<endl;
         for(int i =0; i <statenum; i++ )
             cout<< *(nodes[0]->name) << setw(10)<< "|"<<setw(10);
-        for(int j = 0; j< numPossible; j++){
+        for(int j = 0; j< numPossibleInputs; j++){
             cout<< *(nodes[0]->nextState[0])->name<< "/"<< *(nodes[j]->mooreOutput) << setw(10);
         }
         cout<< endl;
@@ -158,7 +158,7 @@ int main(){
         cout<<"Output Graph" << endl<<endl;
         for(int i = 0; i < statenum; i++){
             cout<< *(nodes[0]->name) << endl;  // output node name
-            for(int j= 0; j < numPossible; j++){
+            for(int j= 0; j < numPossibleInputs; j++){
                 cout<< setw(10)<< *(nodes[0]->nextState[0])->name << setw(10)<< possInputs[0]<< "/"<<  *(nodes[0]->mooreOutput)  ; //output next state
             }
             cout<<endl;
@@ -166,14 +166,14 @@ int main(){
         cout<< "Output Table" << endl<<endl;
         cout<< "Current" <<  setw(10)<< "|"<< setw(10)<< "Next State/Output"<<endl;
         cout<< "State" << setw(10)<<"|" << setw(10);
-        for(int i = 0; i < numPossible; i++){
+        for(int i = 0; i < numPossibleInputs; i++){
             cout<<"X = "<< possInputs[i]<<setw(10);
         }
         cout<<endl;
         cout<< "_____________________________________________________" <<endl;
         for(int i =0; i <statenum; i++ )
             cout<< *(nodes[0]->name) << setw(10)<< "|"<<setw(10);
-        for(int j = 0; j< numPossible; j++){
+        for(int j = 0; j< numPossibleInputs; j++){
             cout<< *(nodes[0]->nextState[0])->name<< "/"<<  *(nodes[1]->mealyOutputs[0])  << setw(10);
         }
         cout<< endl;

@@ -151,12 +151,16 @@ int main(){
     
     string cmd, statein, stateout, input, output;
     int statein_ind, stateout_ind, input_ind, output_ind;
-    //stingA.compare(stringB)
-    //int i = std::stoi("01000101", nullptr, 2)
-    string err = "ERROR";
-    string dontcare = "x";
     int nodenum = 0;
     int outputnum = 0;
+    //stingA.compare(stringB)
+    //int i = std::stoi("01000101", nullptr, 2)
+    
+    //Error State Node
+    string err = "ERROR";
+    string dontcare = "x";
+    NODE *errstate = new NODE;
+    errstate->name = &err;
     
     while(true){
         
@@ -200,11 +204,9 @@ int main(){
                 for(int i=0; i<nodenum; i++){
                     if(states[i].compare(statein) == 0){
                         statein_ind = i;
-                        cout << statein_ind <<endl;
                     }
                     if(states[i].compare(stateout) == 0){
                         stateout_ind = i;
-                        cout << stateout_ind <<endl;
                     }
                 }
                 
@@ -223,6 +225,9 @@ int main(){
                     // Check if input has been defined before
                     if(nodes[statein_ind]->defInputs[input_ind] == 1){
                         nodes[statein_ind]->defInputs[input_ind] = -1;
+                        
+                        // Add Error marks
+                        nodes[statein_ind]->nextState[input_ind] = errstate;
                     } else{
                         
                         // add pointer to stateout into nextState of statein in the correct place
@@ -271,7 +276,6 @@ int main(){
                     cout<<"Error:User has not created NODE '" << statein <<"' and/or NODE '" << stateout << "'"<<endl;
                 } else{
                     
-                    
                     for(int i=0; i<numPossibleInputs; i++){
                         
                         if(possInputs[i].compare(input) == 0){
@@ -285,22 +289,29 @@ int main(){
                     // Check if input has been defined before
                     if(nodes[statein_ind]->defInputs[input_ind] == 1){
                         nodes[statein_ind]->defInputs[input_ind] = -1;
+                        
+                        // Add Error marks
+                        nodes[statein_ind]->nextState[input_ind] = errstate;
+                        // add pointer to output into mealyOutputs of statein in the correct place
+                        nodes[statein_ind]->mealyOutputs[input_ind] = &err;
+                        
                     } else{
                         // Mark if it hasn't
                         nodes[statein_ind]->defInputs[input_ind] = 1;
-                    }
+                    
                         
-                    //check if output has not been defined before
-                    if(output_ind == -1){
-                        outputs[outputnum] = output;
-                        output_ind = outputnum;
-                        outputnum += 1;
-                    }
+                        //check if output has not been defined before
+                        if(output_ind == -1){
+                            outputs[outputnum] = output;
+                            output_ind = outputnum;
+                            outputnum += 1;
+                        }
                         
-                    // add pointer to stateout into nextState of statein in the correct place
-                    nodes[statein_ind]->nextState[input_ind] = nodes[stateout_ind];
-                    // add pointer to output into mealyOutputs of statein in the correct place
-                    nodes[statein_ind]->mealyOutputs[input_ind] = &outputs[output_ind];
+                        // add pointer to stateout into nextState of statein in the correct place
+                        nodes[statein_ind]->nextState[input_ind] = nodes[stateout_ind];
+                        // add pointer to output into mealyOutputs of statein in the correct place
+                        nodes[statein_ind]->mealyOutputs[input_ind] = &outputs[output_ind];
+                    }
                     
                 }
                 
@@ -320,6 +331,55 @@ int main(){
     
     
     // 9. COUT Graph and Table from information in linked list of nodes
+    
+    //Create Moore Table/Graph
+    if(type == 0){
+        cout<<"Output Graph" << endl<<endl;
+        for(int i = 0; i < statenum; i++){
+            cout<< *(nodes[0]->name) << endl;  // output node name
+            for(int j= 0; j < numPossibleInputs; j++){
+                cout<< setw(10)<< *(nodes[0]->nextState[0])->name << setw(10)<< possInputs[0]<< "/"<<  *(nodes[0]->mooreOutput)  ; //output next state
+            }
+            cout<<endl;
+        }
+        cout<< "Output Table" << endl<<endl;
+        cout<< "Current" <<  setw(8)<< "|"<< setw(10)<< "Next State/Output"<<endl;
+        cout<< "State" << setw(10)<<"|" << setw(10);
+        for(int i = 0; i < numPossibleInputs; i++){
+            cout<<"X = "<< possInputs[0]<<setw(10);
+        }
+        cout<<endl;
+        for(int i =0; i <statenum; i++ )
+            cout<< *(nodes[0]->name) << setw(10)<< "|"<<setw(10);
+        for(int j = 0; j< numPossibleInputs; j++){
+            cout<< *(nodes[0]->nextState[0])->name<< "/"<< *(nodes[j]->mooreOutput) << setw(10);
+        }
+        cout<< endl;
+    }
+    else{         // Mealy Graph
+        cout<<"Output Graph" << endl<<endl;
+        for(int i = 0; i < statenum; i++){
+            cout<< *(nodes[0]->name) << endl;  // output node name
+            for(int j= 0; j < numPossibleInputs; j++){
+                cout<< setw(10)<< *(nodes[0]->nextState[0])->name << setw(10)<< possInputs[0]<< "/"<<  *(nodes[0]->mooreOutput)  ; //output next state
+            }
+            cout<<endl;
+        }
+        cout<< "Output Table" << endl<<endl;
+        cout<< "Current" <<  setw(10)<< "|"<< setw(10)<< "Next State/Output"<<endl;
+        cout<< "State" << setw(10)<<"|" << setw(10);
+        for(int i = 0; i < numPossibleInputs; i++){
+            cout<<"X = "<< possInputs[i]<<setw(10);
+        }
+        cout<<endl;
+        cout<< "_____________________________________________________" <<endl;
+        for(int i =0; i <statenum; i++ )
+            cout<< *(nodes[0]->name) << setw(10)<< "|"<<setw(10);
+        for(int j = 0; j< numPossibleInputs; j++){
+            cout<< *(nodes[0]->nextState[0])->name<< "/"<<  *(nodes[1]->mealyOutputs[0])  << setw(10);
+        }
+        cout<< endl;
+    }
     
     /* Example of how to work with COUT
      cout<<"enter1:"<<endl;
