@@ -303,22 +303,22 @@ void main(){
       cout<< "Current" <<  setw(8)<< "|"<< setw(10)<< "Next State/Output"<<endl;
       cout<< "State" << setw(10)<<"|" << setw(10);
       for(int i = 0; i < numPossible; i++){
-        cout<<"X = "<< StrArray[0]<<setw(10);
+        cout<<"X = "<< StrArray[i]<<setw(10);
       }
       cout<<endl;
       for(int i =0; i <statenum; i++ )
-        cout<< *(nodes[0]->name) << setw(10)<< "|"<<setw(10);
+        cout<< *(nodes[i]->name) << setw(10)<< "|"<<setw(10);
         for(int j = 0; j< numPossible; j++){
-          cout<< *(nodes[0]->nextState[0])->name<< "/"<< *(nodes[0]->mooreOutput) << setw(10);
+          cout<< *(nodes[j]->nextState[j])->name<< "/"<< *(nodes[j]->mooreOutput) << setw(10);
         }
         cout<< endl;
     }
     else{         // Mealy Graph
       cout<<"Output Graph" << endl<<endl;
       for(int i = 0; i < statenum; i++){
-          cout<< *(nodes[0]->name) << endl;  // output node name
+          cout<< *(nodes[i]->name) << endl;  // output node name
           for(int j= 0; j < numPossible; j++){
-            cout<< setw(10)<< *(nodes[0]->nextState[0])->name << setw(10)<< StrArray[0]<< "/"<<  *(nodes[0]->mooreOutput)  ; //output next state
+            cout<< setw(10)<< *(nodes[j]->nextState[j])->name << setw(10)<< StrArray[j]<< "/"<<  *(nodes[j]->mooreOutput)  ; //output next state
         }
         cout<<endl;
       }
@@ -331,9 +331,9 @@ void main(){
       cout<<endl;
       cout<< "_____________________________________________________" <<endl;
       for(int i =0; i <statenum; i++ )
-        cout<< *(nodes[0]->name) << setw(10)<< "|"<<setw(10);
+        cout<< *(nodes[i]->name) << setw(10)<< "|"<<setw(10);
         for(int j = 0; j< numPossible; j++){
-          cout<< *(nodes[0]->nextState[0])->name<< "/"<<  *(nodes[1]->mealyOutputs[0])  << setw(10);
+          cout<< *(nodes[j]->nextState[j])->name<< "/"<<  *(nodes[j]->mealyOutputs[j])  << setw(10);
         }
         cout<< endl;
     }
