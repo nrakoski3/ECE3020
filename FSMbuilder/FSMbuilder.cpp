@@ -247,7 +247,98 @@ void main(){
 
 
     // 9. COUT Graph and Table from information in linked list of nodes
+    //int userInput = 3;
+    int numPossible = pow(2,userInput);
+    string StrArray[numPossible];
+    //int numPossible = pow(2,UserInput)
+    string nums1[] = {"0", "1"};
+    string nums2[] = {"00", "01", "10", "11"};
+    string nums3[] = {"000", "001", "010", "011", "100", "101","110", "111"};
+    string nums4[] = {"0000", "0001", "0010", "0011", "0100", "0101","0110", "0111", "1000", "1001", "1010","1011", "1100","1101", "1110", "1111"};
+    string nums5[] = {"00000", "00001", "00010", "00011", "00100", "00101","00110", "00111", "01000", "01001", "01010","01011", "01100","01101", "01110", "01111","10000","10001", "10010", "10011", "10100","10101","10111","11000", "11001" , "11010","11011","11100","11101","11110", "11111"};
+    switch(userInput){
+      case 1:
+        for(int i=0; i < numPossible; i++)
+          StrArray[i] = nums1[i];
+        break;
+      case 2:
+        for(int i=0; i < numPossible; i++)
+          StrArray[i] = nums2[i];
+        break;
+      case 3:
+        for(int i=0; i < numPossible; i++)
+          StrArray[i] = nums3[i];
+        break;
+      case 4:
+        for(int i=0; i < numPossible; i++)
+          StrArray[i] = nums4[i];
+        break;
+      case 5:
+        for(int i=0; i < numPossible; i++)
+          StrArray[i] = nums5[i];
+        break;
+      };
 
+    // Build
+    cout<< "Begin Build:"<< endl;
+
+  //  NODE **nodes;           //Pointer to pointer or type NODE
+  //  nodes = new NODE *[statenum];
+  //  nodes[0] = new NODE;
+  //  nodes[1] = new NODE;
+
+    cout<< *(nodesAlph[0]->name) << endl;
+    cout<< *(nodesAlph[1]->name) << endl;
+    //Create Moore Table/Graph
+    if(type == 0){
+      cout<<"Output Graph" << endl<<endl;
+      for(int i = 0; i < statenum; i++){
+          cout<< *(nodes[i]->name) << endl;  // output node name
+          for(int j= 0; j < numPossible; j++){
+            cout<< setw(10)<< *(nodes[j]->nextState[j])->name << setw(10)<< StrArray[j]<< "/"<<  *(nodes[j]->mooreOutput)  ; //output next state
+        }
+        cout<<endl;
+      }
+      cout<< "Output Table" << endl<<endl;
+      cout<< "Current" <<  setw(8)<< "|"<< setw(10)<< "Next State/Output"<<endl;
+      cout<< "State" << setw(10)<<"|" << setw(10);
+      for(int i = 0; i < numPossible; i++){
+        cout<<"X = "<< StrArray[0]<<setw(10);
+      }
+      cout<<endl;
+      for(int i =0; i <statenum; i++ )
+        cout<< *(nodes[0]->name) << setw(10)<< "|"<<setw(10);
+        for(int j = 0; j< numPossible; j++){
+          cout<< *(nodes[0]->nextState[0])->name<< "/"<< *(nodes[0]->mooreOutput) << setw(10);
+        }
+        cout<< endl;
+    }
+    else{         // Mealy Graph
+      cout<<"Output Graph" << endl<<endl;
+      for(int i = 0; i < statenum; i++){
+          cout<< *(nodes[0]->name) << endl;  // output node name
+          for(int j= 0; j < numPossible; j++){
+            cout<< setw(10)<< *(nodes[0]->nextState[0])->name << setw(10)<< StrArray[0]<< "/"<<  *(nodes[0]->mooreOutput)  ; //output next state
+        }
+        cout<<endl;
+      }
+      cout<< "Output Table" << endl<<endl;
+      cout<< "Current" <<  setw(10)<< "|"<< setw(10)<< "Next State/Output"<<endl;
+      cout<< "State" << setw(10)<<"|";
+      for(int i = 0; i < numPossible; i++){
+        cout<<"X = "<< StrArray[i]<<setw(10);
+      }
+      cout<<endl;
+      cout<< "_____________________________________________________" <<endl;
+      for(int i =0; i <statenum; i++ )
+        cout<< *(nodes[0]->name) << setw(10)<< "|"<<setw(10);
+        for(int j = 0; j< numPossible; j++){
+          cout<< *(nodes[0]->nextState[0])->name<< "/"<<  *(nodes[1]->mealyOutputs[0])  << setw(10);
+        }
+        cout<< endl;
+    }
+
+}
     /* Example of how to work with COUT
      cout<<"enter1:"<<endl;
      cin  >> Car[0]->RegCode;
@@ -256,7 +347,6 @@ void main(){
      system("pause");
      */
 
-}
 
 /*
  Trash Code
