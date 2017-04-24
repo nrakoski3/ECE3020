@@ -9,12 +9,16 @@
 /* Begin PBXFileReference section */
 		2CD4D12B1EA8F7E700C6DAB3 /* FSMbuilder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FSMbuilder.cpp; sourceTree = "<group>"; };
 		2CD4D12C1EA8F7E700C6DAB3 /* FSMbuilder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FSMbuilder.hpp; sourceTree = "<group>"; };
+		2CD4D12D1EAD4B2F00C6DAB3 /* FSM_out.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = FSM_out.cpp; sourceTree = "<group>"; };
+		2CD4D12E1EAD4B2F00C6DAB3 /* FSM_out.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = FSM_out.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		2CD4D1241EA8F6C500C6DAB3 = {
 			isa = PBXGroup;
 			children = (
+				2CD4D12D1EAD4B2F00C6DAB3 /* FSM_out.cpp */,
+				2CD4D12E1EAD4B2F00C6DAB3 /* FSM_out.hpp */,
 				2CD4D12B1EA8F7E700C6DAB3 /* FSMbuilder.cpp */,
 				2CD4D12C1EA8F7E700C6DAB3 /* FSMbuilder.hpp */,
 			);

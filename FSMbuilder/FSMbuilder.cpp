@@ -142,7 +142,6 @@ void main(){
     bool type = false;
     
     // 2. store user entered data
-    char *outputs[];                      // array of pointers to stings that user entered as outputs;
     
     // 3. Ask user for state machine specifications
     cout<<"Enter Number of States Desired:"<<endl;
@@ -220,7 +219,7 @@ void main(){
             
 
         
-        } else if(cmd == "END"){
+        } else if(cmd == "END"){ // User ends operation
             break;
         } else{
             cout<<"User did not enter ""NODE"", ""ARC"", or ""END""."<<endl;
@@ -229,9 +228,6 @@ void main(){
         
         
     }//end while
-    
-    
-    // 6. some way the user marks that they are finished
     
     // 7. alphebetize state(node) names and link the nodes in the appropriate order (nextAlph var of NODE struct)
     
