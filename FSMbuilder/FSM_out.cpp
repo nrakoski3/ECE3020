@@ -59,7 +59,7 @@ int main(){
     states[1] = "Blue";
     int userInput = 3;
     int numPossible = pow(2,userInput);
-    string StrArray[numPossible];
+    string possInputs[numPossible];
     //int numPossible = pow(2,UserInput)
     string nums1[] = {"0", "1"};
     string nums2[] = {"00", "01", "10", "11"};
@@ -69,23 +69,23 @@ int main(){
     switch(userInput){
         case 1:
             for(int i=0; i < numPossible; i++)
-                StrArray[i] = nums1[i];
+                possInputs[i] = nums1[i];
             break;
         case 2:
             for(int i=0; i < numPossible; i++)
-                StrArray[i] = nums2[i];
+                possInputs[i] = nums2[i];
             break;
         case 3:
             for(int i=0; i < numPossible; i++)
-                StrArray[i] = nums3[i];
+                possInputs[i] = nums3[i];
             break;
         case 4:
             for(int i=0; i < numPossible; i++)
-                StrArray[i] = nums4[i];
+                possInputs[i] = nums4[i];
             break;
         case 5:
             for(int i=0; i < numPossible; i++)
-                StrArray[i] = nums5[i];
+                possInputs[i] = nums5[i];
             break;
     };
     
@@ -136,7 +136,7 @@ int main(){
         for(int i = 0; i < statenum; i++){
             cout<< *(nodes[0]->name) << endl;  // output node name
             for(int j= 0; j < numPossible; j++){
-                cout<< setw(10)<< *(nodes[0]->nextState[0])->name << setw(10)<< StrArray[0]<< "/"<<  *(nodes[0]->mooreOutput)  ; //output next state
+                cout<< setw(10)<< *(nodes[0]->nextState[0])->name << setw(10)<< possInputs[0]<< "/"<<  *(nodes[0]->mooreOutput)  ; //output next state
             }
             cout<<endl;
         }
@@ -144,7 +144,7 @@ int main(){
         cout<< "Current" <<  setw(8)<< "|"<< setw(10)<< "Next State/Output"<<endl;
         cout<< "State" << setw(10)<<"|" << setw(10);
         for(int i = 0; i < numPossible; i++){
-            cout<<"X = "<< StrArray[0]<<setw(10);
+            cout<<"X = "<< possInputs[0]<<setw(10);
         }
         cout<<endl;
         for(int i =0; i <statenum; i++ )
@@ -159,7 +159,7 @@ int main(){
         for(int i = 0; i < statenum; i++){
             cout<< *(nodes[0]->name) << endl;  // output node name
             for(int j= 0; j < numPossible; j++){
-                cout<< setw(10)<< *(nodes[0]->nextState[0])->name << setw(10)<< StrArray[0]<< "/"<<  *(nodes[0]->mooreOutput)  ; //output next state
+                cout<< setw(10)<< *(nodes[0]->nextState[0])->name << setw(10)<< possInputs[0]<< "/"<<  *(nodes[0]->mooreOutput)  ; //output next state
             }
             cout<<endl;
         }
@@ -167,7 +167,7 @@ int main(){
         cout<< "Current" <<  setw(10)<< "|"<< setw(10)<< "Next State/Output"<<endl;
         cout<< "State" << setw(10)<<"|" << setw(10);
         for(int i = 0; i < numPossible; i++){
-            cout<<"X = "<< StrArray[i]<<setw(10);
+            cout<<"X = "<< possInputs[i]<<setw(10);
         }
         cout<<endl;
         cout<< "_____________________________________________________" <<endl;
@@ -183,7 +183,7 @@ int main(){
 
 
 /*
- void  BinaryNums(string* StrArray, int userInput){
+ void  BinaryNums(string* possInputs, int userInput){
  //int numPossible = pow(2,UserInput)
  string nums1[] = {"0", "1"};
  string nums2[] = {"00", "01", "10", "11"};
@@ -192,20 +192,20 @@ int main(){
  string nums5[] = {"00000", "00001", "00010", "00011", "00100", "00101","00110", "00111", "01000", "01001", "01010","01011", "01100","01101", "01110", "01111","10000","10001", "10010", "10011", "10100","10101","10111","11000", "11001" , "11010","11011","11100","11101","11110", "11111"};
  switch(userInput){
  case 1:
- StrArray = nums1;
+ possInputs = nums1;
  
  break;
  case 2:
- StrArray = nums2;
+ possInputs = nums2;
  break;
  case 3:
- StrArray = nums3;
+ possInputs = nums3;
  break;
  case 4:
- StrArray = nums4;
+ possInputs = nums4;
  break;
  case 5:
- StrArray = nums5;
+ possInputs = nums5;
  break;
  }
  
