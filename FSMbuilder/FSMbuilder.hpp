@@ -21,9 +21,9 @@
 #include <iterator>
 using namespace std;
 
-void buildNodes(nodeArr, stateNum, inputNum, type);
-void addStateInfo(fromState, input, twoState, output);
-void AddAtTail(state_t* s);
+//void buildNodes(nodeArr, stateNum, inputNum, type);
+//void addStateInfo(fromState, input, twoState, output);
+//void AddAtTail(state_t* s);
 
 
 #endif /* FSMbuilder_hpp */
