@@ -227,7 +227,7 @@ int main(){
                     if(nodes[statein_ind]->defInputs[input_ind] == 1){
                         
                         // Check if NextState is different
-                        if(nodes[statein_ind]->nextState[input_ind] == nodes[stateout_ind]){
+                        if(nodes[statein_ind]->nextState[input_ind] != nodes[stateout_ind]){
                             nodes[statein_ind]->defInputs[input_ind] = -1;
                             // Add Error marks
                             nodes[statein_ind]->nextState[input_ind] = errstate;
@@ -301,7 +301,7 @@ int main(){
                             nodes[statein_ind]->mealyOutputs[input_ind] = &err;
                         }
                         // Check if NextState is different
-                        if(nodes[statein_ind]->nextState[input_ind] == nodes[stateout_ind]){
+                        if(nodes[statein_ind]->nextState[input_ind] != nodes[stateout_ind]){
                             nodes[statein_ind]->defInputs[input_ind] = -1;
                             // Add Error marks
                             nodes[statein_ind]->nextState[input_ind] = errstate;
