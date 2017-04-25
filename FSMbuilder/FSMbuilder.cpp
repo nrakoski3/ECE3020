@@ -161,6 +161,7 @@ int main(){
     string dontcare = "x";
     NODE *errstate = new NODE;
     errstate->name = &err;
+    string errtemp;
     
     while(true){
         
@@ -224,11 +225,15 @@ int main(){
                     
                     // Check if input has been defined before
                     if(nodes[statein_ind]->defInputs[input_ind] == 1){
-                        nodes[statein_ind]->defInputs[input_ind] = -1;
                         
-                        // Add Error marks
-                        nodes[statein_ind]->nextState[input_ind] = errstate;
-                    } else{
+                        // Check if NextState is different
+                        if(nodes[statein_ind]->nextState[input_ind] == nodes[stateout_ind]){
+                            nodes[statein_ind]->defInputs[input_ind] = -1;
+                            // Add Error marks
+                            nodes[statein_ind]->nextState[input_ind] = errstate;
+                        }
+                        
+                    } else if(nodes[statein_ind]->defInputs[input_ind] == 0){
                         
                         // add pointer to stateout into nextState of statein in the correct place
                         nodes[statein_ind]->nextState[input_ind] = nodes[stateout_ind];
@@ -288,14 +293,21 @@ int main(){
                     
                     // Check if input has been defined before
                     if(nodes[statein_ind]->defInputs[input_ind] == 1){
-                        nodes[statein_ind]->defInputs[input_ind] = -1;
+                        errtemp = *(nodes[statein_ind]->mealyOutputs[input_ind]);
+                        // Check if output is different
+                        if(errtemp.compare(output) != 0){
+                            nodes[statein_ind]->defInputs[input_ind] = -1;
+                            // add pointer to output into mealyOutputs of statein in the correct place
+                            nodes[statein_ind]->mealyOutputs[input_ind] = &err;
+                        }
+                        // Check if NextState is different
+                        if(nodes[statein_ind]->nextState[input_ind] == nodes[stateout_ind]){
+                            nodes[statein_ind]->defInputs[input_ind] = -1;
+                            // Add Error marks
+                            nodes[statein_ind]->nextState[input_ind] = errstate;
+                        }
                         
-                        // Add Error marks
-                        nodes[statein_ind]->nextState[input_ind] = errstate;
-                        // add pointer to output into mealyOutputs of statein in the correct place
-                        nodes[statein_ind]->mealyOutputs[input_ind] = &err;
-                        
-                    } else{
+                    } else if(nodes[statein_ind]->defInputs[input_ind] == 0){
                         // Mark if it hasn't
                         nodes[statein_ind]->defInputs[input_ind] = 1;
                     
@@ -326,7 +338,32 @@ int main(){
     }//end while
     
     // 8. check for user error, such as not defining states or defining the different outputs for the same input
-    
+    cout << endl;
+    cout << endl;
+    cout << "% START WARNINGS/ ERRORS %" << endl;
+    for(int i=0; i < nodenum; i++){
+        for(int j=0; j < numPossibleInputs; j++){
+            
+            nodes[i]->defInputs[j]
+            //If 0, give warning, mark input as dontcare
+            if(nodes[i]->defInputs[j] == 0){
+                cout << "% warning: state: '" << *(nodes[i]->name) << "', input '" << possInputs[j]<< "' not specified. %"<< endl;
+            }
+            
+            //If -1, give warning, output for that state will read error.
+            if(nodes[i]->defInputs[j] == -1){
+                
+                if(type == 0){ //Moore
+                cout << "% ERROR: state: '" << *(nodes[i]->name) << "', user defined 2 or more different NextStates for the same input combination: '" << possInputs[j]<< "'. %"<< endl;
+                } else{         //Mealy
+                cout << "% ERROR: state: '" << *(nodes[i]->name) << "', user defined 2 different NextStates and/or Outputs for the same input combination: '" << possInputs[j]<< "'. %"<< endl;
+                }
+            }
+        }
+    }
+    cout << "% END WARNINGS/ ERRORS %" << endl;
+    cout << endl;
+    cout << endl;
     // 7. alphebetize state(node) names and link the nodes in the appropriate order (nextAlph var of NODE struct)
     
     
