@@ -216,7 +216,7 @@ int main(){
                     cout<<"Error:User has not created NODE '" << statein <<"' and/or NODE '" << stateout << "'"<<endl;
                 } else{
                     
-                    for(int i; i<numPossibleInputs; i++){
+                    for(int i=0; i<numPossibleInputs; i++){
                         
                         if(possInputs[i].compare(input) == 0){
                             input_ind = i;
@@ -344,7 +344,7 @@ int main(){
     for(int i=0; i < nodenum; i++){
         for(int j=0; j < numPossibleInputs; j++){
             
-            nodes[i]->defInputs[j]
+            //cout << "State: " << *(nodes[i]->name) << " has defInput: "<< nodes[i]->defInputs[j] << endl;
             //If 0, give warning, mark input as dontcare
             if(nodes[i]->defInputs[j] == 0){
                 cout << "% warning: state: '" << *(nodes[i]->name) << "', input '" << possInputs[j]<< "' not specified. %"<< endl;
